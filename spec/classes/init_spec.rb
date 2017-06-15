@@ -183,6 +183,17 @@ describe 'pam' do
           { :prefix         => 'pam_common_',
             :types          => ['auth', 'account', 'password', 'session', 'noninteractive_session' ],
           }, ],
+      },
+    'debian9'               =>
+      { :osfamily           => 'Debian',
+        :lsbdistid          => 'Debian',
+        :release            => '9',
+        :releasetype        => 'lsbmajdistrelease',
+        :packages           => [ 'libpam0g', ],
+        :files              => [
+          { :prefix         => 'pam_common_',
+            :types          => ['auth', 'account', 'password', 'session', 'noninteractive_session' ],
+          }, ],
       }
   }
   unsupported_platforms = {
@@ -364,7 +375,7 @@ describe 'pam' do
             next
           end
 
-          if check == 'vas' and v[:osfamily] == 'Debian' and ['7', '8'].include?(v[:release])
+          if check == 'vas' and v[:osfamily] == 'Debian' and ['7', '8', '9'].include?(v[:release])
             it 'should fail' do
               expect {
                 should contain_class('pam')
